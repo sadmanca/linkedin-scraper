@@ -1,0 +1,13 @@
+public_id
+name
+headline
+industryName
+summary
+titles
+job descriptions
+locationName
+geoLocationName
+websites
+twitter
+email_address
+phone_numbers
