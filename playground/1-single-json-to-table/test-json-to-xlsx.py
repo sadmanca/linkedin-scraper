@@ -3,7 +3,7 @@ import openpyxl
 import os
 
 # Read the headers from a text file
-with open('headers.txt', 'r') as file:
+with open('table-headers.txt', 'r') as file:
     headers = [line.strip() for line in file]
 
 # Create a new workbook and select the active worksheet
@@ -63,4 +63,4 @@ for row_num, filename in enumerate(os.listdir('.'), start=2):
             worksheet.cell(row=row_num, column=col_num, value=value)
 
 # Save the workbook to an XLSX file
-workbook.save('output.xlsx')
+workbook.save('test-output.xlsx')

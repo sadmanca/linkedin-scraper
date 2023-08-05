@@ -3,11 +3,11 @@ import json
 import os
 
 # Read the headers from a text file
-with open('headers.txt', 'r') as file:
+with open('table-headers.txt', 'r') as file:
     headers = [line.strip() for line in file]
 
 # Open the output CSV file for writing
-with open('sample_lead_profiles.csv', 'w', newline='') as csvfile:
+with open('test-output.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
 
     # Write the headers to the CSV file
@@ -49,19 +49,7 @@ with open('sample_lead_profiles.csv', 'w', newline='') as csvfile:
                 elif header == 'public_id':
                     # Append 'https://www.linkedin.com/in/' followed by the value of the 'public_id' key to the 'row' list
                     row.append('https://www.linkedin.com/in/' + data.get(header, ''))
-                
-                elif header == 'twitter':
-                    if isinstance(data.get(header), list) and len(data.get(header)) == 1:
-                        row.append('https://twitter.com/' + data.get(header)[0].get('name', ''))
-                        
-                elif header == 'websites':
-                    # Extract the URLs from the 'websites' list and join them with commas
-                    urls = [item.get('url', '') for item in data.get(header, [])]
-                    if urls:
-                        row.append(', '.join(urls))
-                    else:
-                        row.append(data.get(header, ''))
-        
+                    
                 else:
                     # Use the value of the header as-is
                     row.append(data.get(header, ''))
