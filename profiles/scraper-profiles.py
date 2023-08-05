@@ -1,11 +1,14 @@
 from linkedin_api import Linkedin
 import csv
 import json
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
-# # Authenticate using any Linkedin account credentials
-api = Linkedin('***REMOVED***', '***REMOVED***')
-# api = Linkedin('***REMOVED***', '***REMOVED***')
+# Authenticate using any Linkedin account credentials
+api = Linkedin(os.environ.get('LINKEDIN_EMAIL'), os.environ.get('LINKEDIN_PASSWORD'))
+# api = Linkedin(os.environ.get('LINKEDIN_EMAIL_ALTERNATIVE'), os.environ.get('LINKEDIN_PASSWORD_ALTERNATIVE'))
 
 # Read the list of profile URLs from the TODO file
 with open('profiles_TODO.txt', 'r') as file:

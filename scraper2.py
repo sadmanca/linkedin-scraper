@@ -1,9 +1,14 @@
 from linkedin_api import Linkedin
 import csv
 import json
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Authenticate using any Linkedin account credentials
-api = Linkedin('***REMOVED***', '***REMOVED***')
+api = Linkedin(os.environ.get('LINKEDIN_EMAIL'), os.environ.get('LINKEDIN_PASSWORD'))
+# api = Linkedin(os.environ.get('LINKEDIN_EMAIL_ALTERNATIVE'), os.environ.get('LINKEDIN_PASSWORD_ALTERNATIVE'))
 
 link = 'https://ca.linkedin.com/in/gerry-vandenham-pmp-ibm-tivoli-maximo-7-8304936'
 profile_url = link.split('/in/')[1]
