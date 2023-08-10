@@ -6,7 +6,6 @@ summary
 titles
 job descriptions
 locationName
-geoLocationName
 websites
 twitter
 email_address

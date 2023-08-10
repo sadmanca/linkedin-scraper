@@ -26,22 +26,35 @@ with open('sample_lead_profiles.csv', 'w', newline='') as csvfile:
                 if header == 'titles':
                     # Extract the value of the 'title' key from each item in the 'experience' list
                     titles = [
-                        f"{item.get('title', '')} at {item.get('companyName', '')}" +
-                        (f" ({item.get('locationName', '')})" if item.get('locationName', '') else '')
-                        for item in data.get('experience', [])
+                        "{}. COMPANY: {}\nJOB TITLE: {}\nLOCATION: {}\n".format(
+                            i + 1,
+                            item.get('companyName', ''),
+                            item.get('title', '').replace('\n', ' '),
+                            item.get('locationName', 'N/A') if item.get('locationName', '') else 'N/A'
+                        )
+                        for i, item in enumerate(data.get('experience', []))
                     ]
                     if titles:
-                        row.append(', '.join(titles))
+                        row.append('\n'.join(titles))
                     else:
                         row.append('')
                         
                 elif header == 'job descriptions':
-                    descriptions = [f"{item.get('description', 'NO_DESCRIPTION')} at {item.get('companyName', '')}" for item in data.get('experience', [])]
+                    descriptions = [
+                        "{}. COMPANY: {}\nJOB TITLE: {}\nLOCATION: {}\nDESCRIPTION: {}\n".format(
+                            i + 1,
+                            item.get('companyName', ''),
+                            item.get('title', '').replace('\n', ' '),
+                            item.get('locationName', 'N/A') if item.get('locationName', '') else 'N/A',
+                            item.get('description', 'N/A')
+                        )
+                        for i, item in enumerate(data.get('experience', []))
+                    ]
                     if descriptions:
-                        row.append(', '.join(descriptions))
+                        row.append('\n'.join(descriptions))
                     else:
-                        row.append('')    
-                                    
+                        row.append('')
+                        
                 elif header == 'name':
                     # Concatenate the values of the 'firstName' and 'lastName' keys with a space separator
                     row.append(data.get('firstName', '') + ' ' + data.get('lastName', ''))
@@ -58,13 +71,25 @@ with open('sample_lead_profiles.csv', 'w', newline='') as csvfile:
                     # Extract the URLs from the 'websites' list and join them with commas
                     urls = [item.get('url', '') for item in data.get(header, [])]
                     if urls:
-                        row.append(', '.join(urls))
+                        row.append(',\n'.join(urls))
                     else:
-                        row.append(data.get(header, ''))
-        
+                        row.append('')
+                        
+                elif header == 'locationName':
+                    location = data.get('locationName', '')
+                    geo_location = data.get('geoLocationName', '')
+                    row.append(geo_location + ', ' + location)
+                    
                 else:
                     # Use the value of the header as-is
-                    row.append(data.get(header, ''))
+                    if header:
+                        value = data.get(header)
+                        if isinstance(value, list) and not value:
+                            row.append('')
+                        else:
+                            row.append(value)
+                    else:
+                        row.append('')
 
             # Write the data to the CSV file
             writer.writerow(row)

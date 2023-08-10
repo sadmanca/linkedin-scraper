@@ -1,4 +1,8 @@
 import yagooglesearch
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 query = "site:linkedin.com/in \"manager\" \"asset management\" \"ibm maximo\""
 
@@ -10,7 +14,8 @@ client = yagooglesearch.SearchClient(
     http_429_cool_off_factor=1.5,
     # proxy="socks5h://127.0.0.1:9050",
     verbosity=5, # 6 turns off all terminal output
-    verbose_output=False,  # False (only URLs) or True (rank, title, description, and URL)
+    verbose_output=False,  # False (only URLs) or True (rank, title, description, and URL),
+    google_exemption = os.environ.get("GOOGLE_ABUSE_EXEMPTION_COOKIE"),
 )
 client.assign_random_user_agent()
 
