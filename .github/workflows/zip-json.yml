@@ -1,13 +1,12 @@
 name: Zip jsons to artifact
 
-on:
-  workflow_dispatch
+on: [workflow_dispatch]
 
 permissions:
   contents: write
 
 jobs:
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
